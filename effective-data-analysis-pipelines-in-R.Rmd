@@ -1,0 +1,34 @@
+---
+title: "Effective Data Analysis Pipelines in R"
+author: "Nathan Eastwood"
+email: "nathan.eastwood@icloud.com"
+maketitle: true
+output:
+  rmdshower::shower_presentation:
+    self_contained: false
+    katex: true
+    theme: mango
+---
+
+## About Me
+
+* BSc Mathematics and Statistics - Plymouth University ($1^{st}$)
+* MSc Statistics - Sheffield University (writing thesis)
+* Worked as a statistician for C3 Resources and Plymouth University
+* Now work as a data scientist for Mango Solutions
+
+## Content
+
+* Single files
+* Multiple files
+* Packages
+* `make`
+* `remake`
+
+## Single File Analyses
+
+## Multiple Files Analyses
+
+## Package Analyses
+
+## `remake` Analyses
