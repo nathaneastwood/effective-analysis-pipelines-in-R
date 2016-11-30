@@ -8,7 +8,7 @@ output:
     self_contained: false
     katex: true
     theme: mango
-    css: style-mango.css
+    css: presentation.css
 ---
 
 ## About Me
@@ -99,6 +99,12 @@ output:
 
 ## Any Questions?
 
-<p><img src="img/www-512x512.png" alt="website" style="width:50px;height:50px;" align="middle"> [https://nathaneastwood.github.io](https://nathaneastwood.github.io)</p>
-<p><img src="img/twitter-512x512.png" alt="Twitter" style="width:50px;height:50px;" align="middle"> [nathaneastwood_](https://www.twitter.com/nathaneastwood_)</p>
-<p><img src="img/github-512x512.png" alt="GitHub" style="width:50px;height:50px;" align="middle"> [https://github.com/nathaneastwood](https://github.com/nathaneastwood)</p>
+<p>
+  <img src="img/www-512x512.png" alt="website" style="width:50px;height:50px;" /> [https://nathaneastwood.github.io](https://nathaneastwood.github.io)
+</p>
+<p>
+  <img src="img/twitter-512x512.png" alt="Twitter" style="width:50px;height:50px;" align="middle"> [\@nathaneastwood_](https://www.twitter.com/nathaneastwood_)
+</p>
+<p>
+  <img src="img/github-512x512.png" alt="GitHub" style="width:50px;height:50px;" align="middle"> [https://github.com/nathaneastwood](https://github.com/nathaneastwood)
+</p>
