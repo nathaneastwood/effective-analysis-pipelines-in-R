@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Effective Data Analysis Pipelines in R</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="effective-data-analysis-pipelines-in-R_files\rmdshower/node_modules/shower-mango/styles/screen-4x3.css">
+  <link rel="stylesheet" href="effective-data-analysis-pipelines-in-R_files\rmdshower/style-common.css">
+  <link rel="stylesheet" href="effective-data-analysis-pipelines-in-R_files\rmdshower/style-mango.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="effective-data-analysis-pipelines-in-R_files\rmdshower/auto-render.min.js" type="text/javascript"></script>
+  
+  
+  
+            <link rel="stylesheet" href="presentation.css"/>
+      
+      <script src="effective-data-analysis-pipelines-in-R_files/htmlwidgets-0.8/htmlwidgets.js"></script>
+    <script src="effective-data-analysis-pipelines-in-R_files/viz-0.3/viz.js"></script>
+    <link href="effective-data-analysis-pipelines-in-R_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="effective-data-analysis-pipelines-in-R_files/grViz-binding-0.8.5/grViz.js"></script>
+  
+</head>
+
+<body class="shower list">
+
+  <header class="caption">
+    <h1>Effective Data Analysis Pipelines in R</h1>
+    <p>Nathan Eastwood</p>
+  </header>
+
+    <section class="slide level1 titlepage">
+    <h1>Effective Data Analysis Pipelines in R</h1>
+    <h2>Nathan Eastwood <br> <a href="mailto:nathan.eastwood@icloud.com">nathan.eastwood@icloud.com</a></h2>
+  </section>
+    
+  
+<section id="about-me" class="slide level2">
+<h2>About Me</h2>
+<ul>
+<li>BSc Mathematics and Statistics - Plymouth University</li>
+<li>MSc Statistics - Sheffield University</li>
+<li>Worked as a statistician for C3 Resources and Plymouth University</li>
+<li>Currently work as a R / data science consultant for Mango Solutions</li>
+</ul>
+</section>
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li>Reproducible workflows</li>
+<li>Process consistency</li>
+<li>Introducing <code>remake</code></li>
+</ul>
+</section>
+<section id="single-file-analyses" class="slide level2">
+<h2>Single File Analyses</h2>
+<pre><code>|- ProjectName/
+    |- data/
+    |- output/
+    |- run.R
+    |- README.md</code></pre>
+</section>
+<section id="multiple-files-analyses" class="slide level2">
+<h2>Multiple Files Analyses</h2>
+<pre><code>|- ProjectName/
+    |- data/
+    |    |- raw/
+    |    |- cleaned/
+    |    |- prepared/
+    |- output/ 
+    |    |- fig/
+    |    |- results/
+    |- lib
+    |    |- source.R
+    |    |- explore.R
+    |    |- prepare.R
+    |    |- model.R
+    |    |- evaluate.R
+    |    |- utils.R
+    |- run.R
+    |- README.md</code></pre>
+</section>
+<section id="problems" class="slide level2">
+<h2>Problems</h2>
+<ul>
+<li>Not scalable</li>
+<li>Undocumented dependencies</li>
+<li>Data can change
+<ul>
+<li>When it does - which parts of the analysis will need re-running?</li>
+</ul></li>
+<li>Manually re-running analyses is prone to error</li>
+</ul>
+</section>
+<section id="two-related-problems" class="slide level2">
+<h2>Two Related Problems</h2>
+<ul>
+<li>Making research reproducible
+<ul>
+<li>Recreate outputs from a paper</li>
+<li>Record entire workflows</li>
+</ul></li>
+<li>Efficient R based workflows
+<ul>
+<li>When do we re-run code?</li>
+</ul></li>
+</ul>
+</section>
+<section id="remake" class="slide level2">
+<h2><code>remake</code></h2>
+<ul>
+<li><code>remake</code> is “Make-like build management, reimagined for R”</li>
+</ul>
+<ul>
+<li>
+Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;height:50px;" align="middle"> <a href="https://github.com/richfitz">Rich Fitz John</a>
+</li>
+</ul>
+<ul>
+<li><code>remake</code> allows you to:
+<ul>
+<li>Change parts of your workflow and only update what changed</li>
+<li>Make your workflow reproducible since it incorporates the data importing, analysis and reporting in the same pipeline</li>
+</ul></li>
+<li><strong>Note:</strong> <code>remake</code> is in active development</li>
+</ul>
+</section>
+<section id="remake-components" class="slide level2">
+<h2><code>remake</code> Components</h2>
+<ul>
+<li>“Targets”: Objects of interest</li>
+<li>“Rules”: Functions returning targets</li>
+<li>“Dependencies”: Upstream targets</li>
+<li>All are defined in a YAML file
+<ul>
+<li>The YAML file tells <code>remake</code> everything it needs to know</li>
+</ul></li>
+</ul>
+<!--
+* "Targets": What are you going to generate. These can be files or R objects.
+* "Rules": How are you going to generate your targets. What functions do you need?
+* "Dependencies": What do you need to generate your targets. These may be other targets that you need for a particular target. Bear in mind that you might have several intermediate targets to produce your final target.
+-->
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li><code>nycflights13</code> (<code>install.packages(&quot;nycflights13&quot;)</code>)
+<ul>
+<li>contains information about all flights that departed from NYC in 2013</li>
+<li>336,776 flights in total</li>
+</ul></li>
+<li>This example uses the datasets:
+<ul>
+<li><code>flights</code></li>
+<li><code>airports</code></li>
+<li><code>airlines</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="the-yaml-file" class="slide level2">
+<h2>The YAML File</h2>
+<ul>
+<li>The yaml file tells <code>remake</code> everything that it needs to know.</li>
+<li>It is the “map” of your analysis</li>
+</ul>
+</section>
+<section id="the-yaml-file---packages-and-source-files" class="slide level2">
+<h2>The YAML File - Packages and Source Files</h2>
+<ul>
+<li>At the start, write:
+<ul>
+<li>the packages you need to load</li>
+<li>the functions you need to source</li>
+</ul></li>
+</ul>
+<p><img src="img/source.png" alt="Source" /></p>
+</section>
+<section id="the-yaml-file---the-targets" class="slide level2">
+<h2>The YAML File - the Targets</h2>
+<ul>
+<li>Next define the targets
+<ul>
+<li>The <code>all</code> target is the final output</li>
+</ul></li>
+</ul>
+<p><img src="img/targets1.png" alt="Targets" /></p>
+</section>
+<section id="the-yaml-file---the-targets-1" class="slide level2">
+<h2>The YAML File - the Targets</h2>
+<ul>
+<li>Now we run the functions on the transformed data and produce the graphics</li>
+</ul>
+<p><img src="img/targets2.png" alt="Targets" /></p>
+</section>
+<section id="the-yaml-file---the-targets-2" class="slide level2">
+<h2>The YAML File - the Targets</h2>
+<ul>
+<li>Finally, we create the output</li>
+</ul>
+<p><img src="img/targets3.png" alt="Targets" /></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><img src="img/yaml.png" alt="comp-yaml" style="width:500px;height:500px;" /></p>
+</section>
+<section id="visualising-your-workflow" class="slide level2">
+<h2>Visualising Your Workflow</h2>
+<ul>
+<li><code>remake</code> uses the <a href="http://rich-iannone.github.io/DiagrammeR/"><code>DiagrammeR</code> package</a> to visualize your workflows!</li>
+<li>You can diagram your whole pipeline using the <code>diagram()</code> function from <code>remake</code>.</li>
+</ul>
+</section>
+<section id="visualising-your-workflow-1" class="slide level2">
+<h2>Visualising Your Workflow</h2>
+<div id="htmlwidget-61e3005f2aaab0487434" style="width:768px;height:470.4px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-61e3005f2aaab0487434">{"x":{"diagram":"digraph remake { node [ fontname = courier, fontsize = 10 ] \nnode [ shape = circle, color = \"#34495e\", fillcolor = \"#D6DBDF\", style = filled ] \"all\"\nnode [ shape = ellipse, color = \"#3498db\", fillcolor = \"#3498db\", style = filled ] \"transformedData\"; \"numFlights\"; \"depDelay\"\nnode [ shape = box, color = \"#f1c40f\", fillcolor = \"#f1c40f\", style = filled ] \"figures/num_flights_per_airport.png\"; \"figures/mean_departure_delay_per_carrier.png\"\nnode [ shape = box, color = \"#d35400\", fillcolor = \"#d35400\", style = filled ] \"report.html\"\nnode [ shape = box, color = \"#1abc9c\", fillcolor = \"#1abc9c\", style = filled ] \"report.Rmd\"\n\"transformedData\" -> \"numFlights\" [tooltip = \"numFlightsFromAirport\"];\n\"transformedData\" -> \"depDelay\" [tooltip = \"meanDepartureDelayByCarrier\"];\n\"numFlights\" -> \"figures/num_flights_per_airport.png\" [tooltip = \"plotNumFlights\"];\n\"depDelay\" -> \"figures/mean_departure_delay_per_carrier.png\" [tooltip = \"plotDepDelay\"];\n\"figures/num_flights_per_airport.png\" -> \"report.html\" [tooltip = \"render\"];\n\"figures/mean_departure_delay_per_carrier.png\" -> \"report.html\" [tooltip = \"render\"];\n\"report.html\" -> \"all\" [tooltip = \"(dependency only)\"];\n\"report.Rmd\" -> \"report.html\" [tooltip = \"render\"]; }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</section>
+<section id="running-the-analysis" class="slide level2">
+<h2>Running the Analysis</h2>
+<ul>
+<li>Running <code>remake::make()</code> will produce the following output:</li>
+</ul>
+<pre><code>&gt; remake::make()
+[  LOAD ] 
+[  READ ]                                              |  # loading sources
+&lt;  MAKE &gt; all
+[ BUILD ] transformedData                              |  transformedData &lt;- mapNames()
+[  READ ]                                              |  # loading packages
+Joining, by = &quot;carrier&quot;
+[ BUILD ] numFlights                                   |  numFlights &lt;- numFlightsFromAirport(transformedData)
+[ BUILD ] depDelay                                     |  depDelay &lt;- meanDepartureDelayByCarrier(transformed...
+[  PLOT ] figures/num_flights_per_airport.png          |  plotNumFlights(numFlights) # ==&gt; figures/num_flights_per_airport...
+[  PLOT ] figures/mean_departure_delay_per_carrier.png |  plotDepDelay(depDelay) # ==&gt; figures/mean_departure_delay_per_ca...
+[ BUILD ] report.html                                  |  render(&quot;report.Rmd&quot;)
+...
+[ ----- ] all</code></pre>
+</section>
+<section id="re-running-the-analysis" class="slide level2">
+<h2>Re-running the Analysis</h2>
+<pre><code>&gt; remake::make()
+&lt;  MAKE &gt; all
+[    OK ] transformedData
+[    OK ] numFlights
+[    OK ] depDelay
+[    OK ] figures/num_flights_per_airport.png
+[    OK ] figures/mean_departure_delay_per_carrier.png
+[    OK ] report.html
+[ ----- ] all</code></pre>
+</section>
+<section id="other-essential-tools" class="slide level2">
+<h2>Other Essential Tools</h2>
+<ul>
+<li>git</li>
+<li><code>packrat</code></li>
+<li><code>testthat</code></li>
+<li><code>Roxygen2</code></li>
+<li>Continuous integration (travis-ci, Jenkins, etc.)</li>
+<li>Code coverage (<code>covr</code>)</li>
+</ul>
+</section>
+<section id="other-automation-tools" class="slide level2">
+<h2>Other Automation Tools</h2>
+<ul>
+<li><code>make</code></li>
+<li><code>Flowr</code></li>
+<li><code>Ruigi</code></li>
+<li>Many more (<a href="https://github.com/pditommaso/awesome-pipeline" class="uri">https://github.com/pditommaso/awesome-pipeline</a>)</li>
+</ul>
+</section>
+<section id="summary---key-messages" class="slide level2">
+<h2>Summary - key messages</h2>
+<ul>
+<li>Consistency in your processes</li>
+<li>Consistency in analysis quality</li>
+<li>Reproducibility</li>
+<li>Reusability</li>
+<li>Single and multi-file analyses are not scalable</li>
+<li>They do not track dependencies well</li>
+<li>It can be difficult to know which functions to run and in what order</li>
+<li><code>remake</code> (or similar) can handle these issues for you</li>
+</ul>
+</section>
+<section id="any-questions" class="slide level2">
+<h2>Any Questions?</h2>
+<p>
+<img src="img/www-512x512.png" alt="website" style="width:50px;height:50px;" /> <a href="https://nathaneastwood.github.io" class="uri">https://nathaneastwood.github.io</a>
+</p>
+<p>
+<img src="img/twitter-512x512.png" alt="Twitter" style="width:50px;height:50px;" align="middle"> <a href="https://www.twitter.com/nathaneastwood_">@nathaneastwood_</a>
+</p>
+<p>
+<img src="img/github-512x512.png" alt="GitHub" style="width:50px;height:50px;" align="middle"> <a href="https://github.com/nathaneastwood" class="uri">https://github.com/nathaneastwood</a>
+</p>
+</section>
+
+  <!--
+  To hide progress bar from entire presentation
+  just remove “progress” element.
+  -->
+  <!-- <div class="progress"></div> -->
+  <script src="effective-data-analysis-pipelines-in-R_files\rmdshower/node_modules/shower/node_modules/shower-core/shower.min.js"></script>
+  <!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+  <!-- Photos by John Carey, fiftyfootshadows.net -->
+
+    <script>renderMathInElement(document.body);</script>
+  
+  
+</body>
+</html>
