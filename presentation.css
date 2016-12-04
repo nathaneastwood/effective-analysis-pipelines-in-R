@@ -1,0 +1,9 @@
+p { line-height: 50px; }
+p img { vertical-align: middle; }
+li img { vertical-align: middle; }
+
+.slide a {
+  background: none; 
+}
+
+#running-the-analysis pre { font-size: 60%; }

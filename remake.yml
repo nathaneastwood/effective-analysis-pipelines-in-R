@@ -1,0 +1,36 @@
+packages:
+  - dplyr
+  - ggplot2
+  - rmarkdown
+  - nycflights13
+
+sources:
+  - R/functions.R
+  
+targets:
+  all:
+    depends:
+      - report.html
+
+  transformedData:
+    command: mapNames()
+    
+  numFlights:
+    command: numFlightsFromAirport(transformedData)
+  
+  depDelay:
+    command: meanDepartureDelayByCarrier(transformedData)
+    
+  figures/num_flights_per_airport.png:
+    command: plotNumFlights(numFlights)
+    plot: true
+    
+  figures/mean_departure_delay_per_carrier.png:
+    command: plotDepDelay(depDelay)
+    plot: true
+    
+  report.html:
+    depends:
+      - figures/num_flights_per_airport.png
+      - figures/mean_departure_delay_per_carrier.png
+    command: render("report.Rmd")
