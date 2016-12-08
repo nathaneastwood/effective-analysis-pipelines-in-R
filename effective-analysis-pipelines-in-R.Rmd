@@ -109,7 +109,7 @@ output:
     * `flights`, `airports`, `airlines`
 * I want to generate a report with
     * The number of flights from each airport each month
-    * The mean number of flights per airline each month
+    * The mean departure delay per airline each month
 
 ## The YAML File - Packages and Source Files
 
