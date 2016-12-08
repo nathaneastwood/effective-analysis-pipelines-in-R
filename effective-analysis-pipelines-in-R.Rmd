@@ -24,7 +24,7 @@ output:
 * Process consistency
 * Introducing `remake`
 
-## Single File Analyses
+## Single Script Analyses
 
 ```
 |- ProjectName/
@@ -34,7 +34,7 @@ output:
     |- README.md
 ```
 
-## Multiple Files Analyses
+## Multiple Script Analyses
 
 ```
 |- ProjectName/
@@ -204,7 +204,7 @@ Joining, by = "carrier"
 * `Ruigi`
 * Many more (<https://github.com/pditommaso/awesome-pipeline>)
 
-## Summary - key messages
+## Summary - Key Messages
 
 * Consistency in your processes
 * Consistency in analysis quality
