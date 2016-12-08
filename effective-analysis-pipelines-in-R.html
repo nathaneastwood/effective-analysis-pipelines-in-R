@@ -132,16 +132,19 @@ Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;heig
 <li>“Targets”: Objects of interest</li>
 <li>“Rules”: Functions returning targets</li>
 <li>“Dependencies”: Upstream targets</li>
-<li>All are defined in a YAML file
-<ul>
-<li>The YAML file tells <code>remake</code> everything it needs to know</li>
-</ul></li>
 </ul>
 <!--
 * "Targets": What are you going to generate. These can be files or R objects.
 * "Rules": How are you going to generate your targets. What functions do you need?
 * "Dependencies": What do you need to generate your targets. These may be other targets that you need for a particular target. Bear in mind that you might have several intermediate targets to produce your final target.
 -->
+</section>
+<section id="remake-components---the-yaml-file" class="slide level2">
+<h2><code>remake</code> Components - The YAML File</h2>
+<ul>
+<li>The yaml file tells <code>remake</code> everything that it needs to know.</li>
+<li>It is the “map” of your analysis</li>
+</ul>
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
@@ -157,13 +160,11 @@ Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;heig
 <li><code>airports</code></li>
 <li><code>airlines</code></li>
 </ul></li>
-</ul>
-</section>
-<section id="the-yaml-file" class="slide level2">
-<h2>The YAML File</h2>
+<li>I want to generate a report with
 <ul>
-<li>The yaml file tells <code>remake</code> everything that it needs to know.</li>
-<li>It is the “map” of your analysis</li>
+<li>The number of flights from each airport each month</li>
+<li>The mean number of flights per airline each month</li>
+</ul></li>
 </ul>
 </section>
 <section id="the-yaml-file---packages-and-source-files" class="slide level2">
@@ -214,8 +215,8 @@ Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;heig
 </section>
 <section id="visualising-your-workflow-1" class="slide level2">
 <h2>Visualising Your Workflow</h2>
-<div id="htmlwidget-f3b07d88a3f249f2ddf1" style="width:768px;height:470.4px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f3b07d88a3f249f2ddf1">{"x":{"diagram":"digraph remake { node [ fontname = courier, fontsize = 10 ] \nnode [ shape = circle, color = \"#34495e\", fillcolor = \"#D6DBDF\", style = filled ] \"all\"\nnode [ shape = ellipse, color = \"#3498db\", fillcolor = \"#3498db\", style = filled ] \"transformedData\"; \"numFlights\"; \"depDelay\"\nnode [ shape = box, color = \"#f1c40f\", fillcolor = \"#f1c40f\", style = filled ] \"figures/num_flights_per_airport.png\"; \"figures/mean_departure_delay_per_carrier.png\"\nnode [ shape = box, color = \"#d35400\", fillcolor = \"#d35400\", style = filled ] \"report.html\"\nnode [ shape = box, color = \"#1abc9c\", fillcolor = \"#1abc9c\", style = filled ] \"report.Rmd\"\n\"transformedData\" -> \"numFlights\" [tooltip = \"numFlightsFromAirport\"];\n\"transformedData\" -> \"depDelay\" [tooltip = \"meanDepartureDelayByCarrier\"];\n\"numFlights\" -> \"figures/num_flights_per_airport.png\" [tooltip = \"plotNumFlights\"];\n\"depDelay\" -> \"figures/mean_departure_delay_per_carrier.png\" [tooltip = \"plotDepDelay\"];\n\"figures/num_flights_per_airport.png\" -> \"report.html\" [tooltip = \"render\"];\n\"figures/mean_departure_delay_per_carrier.png\" -> \"report.html\" [tooltip = \"render\"];\n\"report.html\" -> \"all\" [tooltip = \"(dependency only)\"];\n\"report.Rmd\" -> \"report.html\" [tooltip = \"render\"]; }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d6d82269ed8a8c60e41b" style="width:768px;height:470.4px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d6d82269ed8a8c60e41b">{"x":{"diagram":"digraph remake { node [ fontname = courier, fontsize = 10 ] \nnode [ shape = circle, color = \"#34495e\", fillcolor = \"#D6DBDF\", style = filled ] \"all\"\nnode [ shape = ellipse, color = \"#3498db\", fillcolor = \"#3498db\", style = filled ] \"transformedData\"; \"numFlights\"; \"depDelay\"\nnode [ shape = box, color = \"#f1c40f\", fillcolor = \"#f1c40f\", style = filled ] \"figures/num_flights_per_airport.png\"; \"figures/mean_departure_delay_per_carrier.png\"\nnode [ shape = box, color = \"#d35400\", fillcolor = \"#d35400\", style = filled ] \"report.html\"\nnode [ shape = box, color = \"#1abc9c\", fillcolor = \"#1abc9c\", style = filled ] \"report.Rmd\"\n\"transformedData\" -> \"numFlights\" [tooltip = \"numFlightsFromAirport\"];\n\"transformedData\" -> \"depDelay\" [tooltip = \"meanDepartureDelayByCarrier\"];\n\"numFlights\" -> \"figures/num_flights_per_airport.png\" [tooltip = \"plotNumFlights\"];\n\"depDelay\" -> \"figures/mean_departure_delay_per_carrier.png\" [tooltip = \"plotDepDelay\"];\n\"figures/num_flights_per_airport.png\" -> \"report.html\" [tooltip = \"render\"];\n\"figures/mean_departure_delay_per_carrier.png\" -> \"report.html\" [tooltip = \"render\"];\n\"report.html\" -> \"all\" [tooltip = \"(dependency only)\"];\n\"report.Rmd\" -> \"report.html\" [tooltip = \"render\"]; }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </section>
 <section id="running-the-analysis" class="slide level2">
 <h2>Running the Analysis</h2>

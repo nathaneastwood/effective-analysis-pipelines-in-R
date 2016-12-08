@@ -88,14 +88,17 @@ output:
 * "Targets": Objects of interest
 * "Rules": Functions returning targets
 * "Dependencies": Upstream targets
-* All are defined in a YAML file
-    * The YAML file tells `remake` everything it needs to know
 
 <!--
 * "Targets": What are you going to generate. These can be files or R objects.
 * "Rules": How are you going to generate your targets. What functions do you need?
 * "Dependencies": What do you need to generate your targets. These may be other targets that you need for a particular target. Bear in mind that you might have several intermediate targets to produce your final target.
 -->
+
+## `remake` Components - The YAML File
+
+* The yaml file tells `remake` everything that it needs to know.
+* It is the "map" of your analysis
 
 ## Example
 
@@ -106,11 +109,9 @@ output:
     * `flights`
     * `airports`
     * `airlines`
-
-## The YAML File
-
-* The yaml file tells `remake` everything that it needs to know.
-* It is the "map" of your analysis
+* I want to generate a report with
+    * The number of flights from each airport each month
+    * The mean number of flights per airline each month
 
 ## The YAML File - Packages and Source Files
 
