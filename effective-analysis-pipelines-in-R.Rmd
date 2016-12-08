@@ -210,7 +210,7 @@ Joining, by = "carrier"
 * Consistency in analysis quality
 * Reproducibility
 * Reusability
-* Single and multi-file analyses are not scalable
+* Single and multi-script analyses are not scalable
 * They do not track dependencies well
 * It can be difficult to know which functions to run and in what order
 * `remake` (or similar) can handle these issues for you
