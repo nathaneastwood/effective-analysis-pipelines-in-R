@@ -156,9 +156,7 @@ Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;heig
 </ul></li>
 <li>This example uses the datasets:
 <ul>
-<li><code>flights</code></li>
-<li><code>airports</code></li>
-<li><code>airlines</code></li>
+<li><code>flights</code>, <code>airports</code>, <code>airlines</code></li>
 </ul></li>
 <li>I want to generate a report with
 <ul>
@@ -215,8 +213,8 @@ Written by <img src="img/github-512x512.png" alt="GitHub" style="width:50px;heig
 </section>
 <section id="visualising-your-workflow-1" class="slide level2">
 <h2>Visualising Your Workflow</h2>
-<div id="htmlwidget-d6d82269ed8a8c60e41b" style="width:768px;height:470.4px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d6d82269ed8a8c60e41b">{"x":{"diagram":"digraph remake { node [ fontname = courier, fontsize = 10 ] \nnode [ shape = circle, color = \"#34495e\", fillcolor = \"#D6DBDF\", style = filled ] \"all\"\nnode [ shape = ellipse, color = \"#3498db\", fillcolor = \"#3498db\", style = filled ] \"transformedData\"; \"numFlights\"; \"depDelay\"\nnode [ shape = box, color = \"#f1c40f\", fillcolor = \"#f1c40f\", style = filled ] \"figures/num_flights_per_airport.png\"; \"figures/mean_departure_delay_per_carrier.png\"\nnode [ shape = box, color = \"#d35400\", fillcolor = \"#d35400\", style = filled ] \"report.html\"\nnode [ shape = box, color = \"#1abc9c\", fillcolor = \"#1abc9c\", style = filled ] \"report.Rmd\"\n\"transformedData\" -> \"numFlights\" [tooltip = \"numFlightsFromAirport\"];\n\"transformedData\" -> \"depDelay\" [tooltip = \"meanDepartureDelayByCarrier\"];\n\"numFlights\" -> \"figures/num_flights_per_airport.png\" [tooltip = \"plotNumFlights\"];\n\"depDelay\" -> \"figures/mean_departure_delay_per_carrier.png\" [tooltip = \"plotDepDelay\"];\n\"figures/num_flights_per_airport.png\" -> \"report.html\" [tooltip = \"render\"];\n\"figures/mean_departure_delay_per_carrier.png\" -> \"report.html\" [tooltip = \"render\"];\n\"report.html\" -> \"all\" [tooltip = \"(dependency only)\"];\n\"report.Rmd\" -> \"report.html\" [tooltip = \"render\"]; }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d42262290f6ec7c8ab52" style="width:768px;height:470.4px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d42262290f6ec7c8ab52">{"x":{"diagram":"digraph remake { node [ fontname = courier, fontsize = 10 ] \nnode [ shape = circle, color = \"#34495e\", fillcolor = \"#D6DBDF\", style = filled ] \"all\"\nnode [ shape = ellipse, color = \"#3498db\", fillcolor = \"#3498db\", style = filled ] \"transformedData\"; \"numFlights\"; \"depDelay\"\nnode [ shape = box, color = \"#f1c40f\", fillcolor = \"#f1c40f\", style = filled ] \"figures/num_flights_per_airport.png\"; \"figures/mean_departure_delay_per_carrier.png\"\nnode [ shape = box, color = \"#d35400\", fillcolor = \"#d35400\", style = filled ] \"report.html\"\nnode [ shape = box, color = \"#1abc9c\", fillcolor = \"#1abc9c\", style = filled ] \"report.Rmd\"\n\"transformedData\" -> \"numFlights\" [tooltip = \"numFlightsFromAirport\"];\n\"transformedData\" -> \"depDelay\" [tooltip = \"meanDepartureDelayByCarrier\"];\n\"numFlights\" -> \"figures/num_flights_per_airport.png\" [tooltip = \"plotNumFlights\"];\n\"depDelay\" -> \"figures/mean_departure_delay_per_carrier.png\" [tooltip = \"plotDepDelay\"];\n\"figures/num_flights_per_airport.png\" -> \"report.html\" [tooltip = \"render\"];\n\"figures/mean_departure_delay_per_carrier.png\" -> \"report.html\" [tooltip = \"render\"];\n\"report.html\" -> \"all\" [tooltip = \"(dependency only)\"];\n\"report.Rmd\" -> \"report.html\" [tooltip = \"render\"]; }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </section>
 <section id="running-the-analysis" class="slide level2">
 <h2>Running the Analysis</h2>

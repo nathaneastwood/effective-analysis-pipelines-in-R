@@ -106,9 +106,7 @@ output:
     * contains information about all flights that departed from NYC in 2013
     * 336,776 flights in total
 * This example uses the datasets:
-    * `flights`
-    * `airports`
-    * `airlines`
+    * `flights`, `airports`, `airlines`
 * I want to generate a report with
     * The number of flights from each airport each month
     * The mean number of flights per airline each month
